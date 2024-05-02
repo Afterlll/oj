@@ -8,7 +8,7 @@
       :model="form"
       @submit="handleSubmit"
     >
-      <a-form-item field="userAccount" label="账号">
+      <a-form-item field="userAccount" tooltip="用户名不少于 8 位" label="账号">
         <a-input v-model="form.userAccount" placeholder="请输入账号" />
       </a-form-item>
       <a-form-item field="userPassword" tooltip="密码不少于 8 位" label="密码">
@@ -18,7 +18,7 @@
         />
       </a-form-item>
       <a-form-item>
-        <a-button type="primary" html-type="submit" style="width: 120px">
+        <a-button type="primary" html-type="submit" style="width: 100%">
           登录
         </a-button>
       </a-form-item>
