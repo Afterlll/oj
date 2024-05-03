@@ -17,7 +17,7 @@
 import BasicLayout from "@/layouts/BasicLayout";
 import { onMounted, ref } from "vue";
 import { useRoute } from "vue-router";
-import MDEdit from "@/components/MDEdit.vue";
+import MDEdit from "@/components/MdEditor.vue";
 import { Editor } from "@bytemd/vue-next";
 
 const route = useRoute();

@@ -4,5 +4,5 @@
 /* eslint-disable */
 
 export type DeleteRequest = {
-    id?: number;
+  id?: number;
 };

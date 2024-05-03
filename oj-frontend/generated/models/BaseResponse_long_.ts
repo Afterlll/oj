@@ -4,7 +4,7 @@
 /* eslint-disable */
 
 export type BaseResponse_long_ = {
-    code?: number;
-    data?: number;
-    message?: string;
+  code?: number;
+  data?: number;
+  message?: string;
 };

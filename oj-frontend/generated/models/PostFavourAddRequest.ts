@@ -4,5 +4,5 @@
 /* eslint-disable */
 
 export type PostFavourAddRequest = {
-    postId?: number;
+  postId?: number;
 };
