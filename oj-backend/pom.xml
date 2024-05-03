@@ -10,9 +10,9 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.jxy</groupId>
-    <artifactId>springboot-init</artifactId>
+    <artifactId>oj-backend</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>springboot-init</name>
+    <name>oj-backend</name>
     <properties>
         <java.version>1.8</java.version>
     </properties>
