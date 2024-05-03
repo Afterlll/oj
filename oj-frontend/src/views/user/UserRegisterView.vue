@@ -17,7 +17,11 @@
           placeholder="请输入密码"
         />
       </a-form-item>
-      <a-form-item field="checkPassword" tooltip="密码不少于 8 位" label="确认密码">
+      <a-form-item
+        field="checkPassword"
+        tooltip="确认密码不少于 8 位"
+        label="确认密码"
+      >
         <a-input-password
           v-model="form.checkPassword"
           placeholder="请确认密码"

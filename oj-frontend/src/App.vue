@@ -15,8 +15,10 @@
 </style>
 <script setup lang="ts">
 import BasicLayout from "@/layouts/BasicLayout";
-import { onMounted } from "vue";
+import { onMounted, ref } from "vue";
 import { useRoute } from "vue-router";
+import MDEdit from "@/components/MDEdit.vue";
+import { Editor } from "@bytemd/vue-next";
 
 const route = useRoute();
 

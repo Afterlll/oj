@@ -1,5 +1,5 @@
 import { RouteRecordRaw } from "vue-router";
-import HomeView from "@/views/HomeView.vue";
+import HomeView from "@/views/ExampleView.vue";
 import UserLayout from "@/layouts/UserLayout.vue";
 import UserLoginView from "@/views/user/UserLoginView.vue";
 import UserRegisterView from "@/views/user/UserRegisterView.vue";
