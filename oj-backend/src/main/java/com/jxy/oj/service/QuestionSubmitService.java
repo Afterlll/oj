@@ -10,11 +10,12 @@ import com.jxy.oj.model.entity.User;
 import com.jxy.oj.model.vo.QuestionSubmitVO;
 
 /**
-* @author wangkeyao
-* @description 针对表【question_submit(题目提交)】的数据库操作Service
-*/
+ * @author wangkeyao
+ * @description 针对表【question_submit(题目提交)】的数据库操作Service
+ * @createDate 2023-08-07 20:58:53
+ */
 public interface QuestionSubmitService extends IService<QuestionSubmit> {
-    
+
     /**
      * 题目提交
      *

@@ -1,7 +1,5 @@
 package com.jxy.oj.service.impl;
 
-import static com.jxy.oj.constant.UserConstant.USER_LOGIN_STATE;
-
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -16,10 +14,6 @@ import com.jxy.oj.model.vo.LoginUserVO;
 import com.jxy.oj.model.vo.UserVO;
 import com.jxy.oj.service.UserService;
 import com.jxy.oj.utils.SqlUtils;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
-import javax.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import me.chanjar.weixin.common.bean.WxOAuth2UserInfo;
 import org.apache.commons.lang3.StringUtils;
@@ -27,12 +21,18 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
+import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import static com.jxy.oj.constant.UserConstant.USER_LOGIN_STATE;
+
 /**
  * 用户服务实现
  *
- * @author <a href="https://github.com/Afterlll">程序员江喜原</a>
- * 
- */
+ * @author <a href="https://github.com/Afterlll">江喜原</a>
+**/
 @Service
 @Slf4j
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
@@ -40,7 +40,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     /**
      * 盐值，混淆密码
      */
-    private static final String SALT = "jxy";
+    private static final String SALT = "yupi";
 
     @Override
     public long userRegister(String userAccount, String userPassword, String checkPassword) {

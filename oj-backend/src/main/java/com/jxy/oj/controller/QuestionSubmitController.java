@@ -25,7 +25,7 @@ import javax.servlet.http.HttpServletRequest;
  * 题目提交接口
  *
  * @author <a href="https://github.com/Afterlll">江喜原</a>
- */
+**/
 @RestController
 @RequestMapping("/question_submit")
 @Slf4j
@@ -46,11 +46,11 @@ public class QuestionSubmitController {
      */
     @PostMapping("/")
     public BaseResponse<Long> doQuestionSubmit(@RequestBody QuestionSubmitAddRequest questionSubmitAddRequest,
-            HttpServletRequest request) {
+                                               HttpServletRequest request) {
         if (questionSubmitAddRequest == null || questionSubmitAddRequest.getQuestionId() <= 0) {
             throw new BusinessException(ErrorCode.PARAMS_ERROR);
         }
-        // 登录才能提交题目
+        // 登录才能点赞
         final User loginUser = userService.getLoginUser(request);
         long questionSubmitId = questionSubmitService.doQuestionSubmit(questionSubmitAddRequest, loginUser);
         return ResultUtils.success(questionSubmitId);
@@ -75,5 +75,6 @@ public class QuestionSubmitController {
         // 返回脱敏信息
         return ResultUtils.success(questionSubmitService.getQuestionSubmitVOPage(questionSubmitPage, loginUser));
     }
+
 
 }

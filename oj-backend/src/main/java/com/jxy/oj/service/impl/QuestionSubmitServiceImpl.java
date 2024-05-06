@@ -29,14 +29,13 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
-* @author wangkeyao
-* @description 针对表【question_submit(题目提交)】的数据库操作Service实现
-* @createDate 2023-08-07 20:58:53
-*/
+ * @author wangkeyao
+ * @description 针对表【question_submit(题目提交)】的数据库操作Service实现
+ */
 @Service
 public class QuestionSubmitServiceImpl extends ServiceImpl<QuestionSubmitMapper, QuestionSubmit>
-    implements QuestionSubmitService{
-    
+        implements QuestionSubmitService{
+
     @Resource
     private QuestionService questionService;
 
@@ -81,6 +80,7 @@ public class QuestionSubmitServiceImpl extends ServiceImpl<QuestionSubmitMapper,
         }
         return questionSubmit.getId();
     }
+
 
     /**
      * 获取查询包装类（用户根据哪些字段查询，根据前端传来的请求对象，得到 mybatis 框架支持的查询 QueryWrapper 类）

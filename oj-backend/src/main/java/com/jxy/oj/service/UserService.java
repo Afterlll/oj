@@ -6,16 +6,16 @@ import com.jxy.oj.model.dto.user.UserQueryRequest;
 import com.jxy.oj.model.entity.User;
 import com.jxy.oj.model.vo.LoginUserVO;
 import com.jxy.oj.model.vo.UserVO;
-import java.util.List;
-import javax.servlet.http.HttpServletRequest;
 import me.chanjar.weixin.common.bean.WxOAuth2UserInfo;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * 用户服务
  *
- * @author <a href="https://github.com/Afterlll">程序员江喜原</a>
- * 
- */
+ * @author <a href="https://github.com/Afterlll">江喜原</a>*
+**/
 public interface UserService extends IService<User> {
 
     /**

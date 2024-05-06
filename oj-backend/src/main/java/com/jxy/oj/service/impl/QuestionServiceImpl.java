@@ -29,12 +29,13 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
-* @author wangkeyao
-* @description 针对表【question(题目)】的数据库操作Service实现
-*/
+ * @author wangkeyao
+ * @description 针对表【question(题目)】的数据库操作Service实现
+ */
 @Service
 public class QuestionServiceImpl extends ServiceImpl<QuestionMapper, Question>
-    implements QuestionService{
+        implements QuestionService{
+
 
     @Resource
     private UserService userService;
