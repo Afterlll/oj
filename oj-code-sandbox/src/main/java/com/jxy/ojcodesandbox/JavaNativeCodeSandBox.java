@@ -30,8 +30,9 @@ public class JavaNativeCodeSandBox implements CodeSandBox {
         JavaNativeCodeSandBox javaNativeCodeSandBox = new JavaNativeCodeSandBox();
         ExecuteCodeRequest executeCodeRequest = new ExecuteCodeRequest();
         executeCodeRequest.setInputList(Arrays.asList("1 2", "3 4"));
-        String code = ResourceUtil.readUtf8Str("example/exampleArg/Main.java");
+//        String code = ResourceUtil.readUtf8Str("example/exampleArg/Main.java");
 //        String code = ResourceUtil.readUtf8Str("example/exampleAcm/Main.java");
+        String code = ResourceUtil.readUtf8Str("example/error/RunFileError.java");
         executeCodeRequest.setCode(code);
         executeCodeRequest.setLanguage("java");
         ExecuteCodeRespond executeCodeRespond = javaNativeCodeSandBox.executeCode(executeCodeRequest);
