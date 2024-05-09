@@ -3,16 +3,22 @@ package com.jxy.ojcodesandbox;
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.io.resource.ResourceUtil;
 import cn.hutool.core.util.StrUtil;
+import cn.hutool.dfa.WordTree;
 import com.jxy.ojcodesandbox.model.JudgeInfo;
 import com.jxy.ojcodesandbox.model.dto.ExecuteCodeRequest;
 import com.jxy.ojcodesandbox.model.enums.ExecStatusEnum;
 import com.jxy.ojcodesandbox.model.vo.ExecuteCodeRespond;
+import com.jxy.ojcodesandbox.security.DefaultSecurityManager;
 import com.jxy.ojcodesandbox.util.ExecuteMessage;
 import com.jxy.ojcodesandbox.util.ProcessUtils;
 import lombok.extern.slf4j.Slf4j;
 
-import java.io.*;
-import java.util.*;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.UUID;
 
 /**
  * @author wangkeyao
@@ -25,6 +31,38 @@ public class JavaNativeCodeSandBox implements CodeSandBox {
     private final static String CODE_DIR_PATH = "src\\main\\resources\\tmpCode";
 
     private final static String CODE_MAIN_FILE = "Main.java";
+
+    /**
+     * 时间限制
+     */
+    private final static Long TIME_OUT = 3000L;
+
+    /**
+     * 黑名单
+     */
+    private final static List<String> BLACK_LIST = Arrays.asList("Files", "exec");
+
+    /**
+     * 字典树
+     */
+    private static WordTree WORD_TREE;
+
+    {
+        // 初始化字典树
+        WORD_TREE = new WordTree();
+        WORD_TREE.addWords(BLACK_LIST);
+    }
+
+    /**
+     * 安全管理器路径
+     */
+    private static final String SECURITY_MANAGER_PATH = "D:\\code\\project\\oj\\oj-code-sandbox\\src\\main\\resources\\security";
+
+    /**
+     * 安全管理器主类
+     */
+    private static final String SECURITY_MANAGER_CLASS_NAME = "MySecurityManager";
+
 
     public static void main(String[] args) {
         JavaNativeCodeSandBox javaNativeCodeSandBox = new JavaNativeCodeSandBox();
@@ -41,9 +79,17 @@ public class JavaNativeCodeSandBox implements CodeSandBox {
 
     @Override
     public ExecuteCodeRespond executeCode(ExecuteCodeRequest executeCodeRequest) {
+//        System.setSecurityManager(new DefaultSecurityManager());
+
         List<String> inputList = executeCodeRequest.getInputList();
         String code = executeCodeRequest.getCode();
         String language = executeCodeRequest.getLanguage();
+
+        // 检验代码种是否含有黑名单中的禁用词
+//        if (null != WORD_TREE.matchWord(code)) {
+//            log.error("包含禁用词，禁止访问！");
+//            return null;
+//        }
 
         // 1. 把用户的代码保存到文件中
         String projectDir = System.getProperty("user.dir");
@@ -74,8 +120,22 @@ public class JavaNativeCodeSandBox implements CodeSandBox {
             // -Dfile.encoding=UTF-8 参数解决java代码运行时出现的乱码问题
             for (String input : inputList) {
                 // arg参数方式
-                String runCmd = String.format("java -Dfile.encoding=UTF-8 -cp %s Main %s", userCodeParentPath, input);
+                // 1. 限制资源分配（最大堆内存256m）,这种方式只能进行程序方面的限制，系统方面的限制使用cGroup（系统）
+                // 2. 使用安全管理器
+                String runCmd = String.format("java -Xms256m -Xmx256m -Dfile.encoding=UTF-8 -cp %s;%s -Djava.security.manager=%s Main %s", userCodeParentPath, SECURITY_MANAGER_PATH, SECURITY_MANAGER_CLASS_NAME, input);
                 Process runProcess = Runtime.getRuntime().exec(runCmd);
+
+                // 开启后台线程监控超时
+//                new Thread(() -> {
+//                    try {
+//                        Thread.sleep(TIME_OUT);
+//                        log.error("用户程序运行超时，强制中断！");
+//                        runProcess.destroy();
+//                    } catch (InterruptedException e) {
+//                        throw new RuntimeException(e);
+//                    }
+//                }).start();
+
                 ExecuteMessage executeMessage = ProcessUtils.runProcessAndGetMessage(runProcess, "运行");
                 log.info("执行结果：{}", executeMessage);
             }
