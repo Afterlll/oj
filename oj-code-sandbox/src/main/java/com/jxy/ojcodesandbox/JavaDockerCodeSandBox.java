@@ -20,6 +20,7 @@ import com.jxy.ojcodesandbox.util.DockerUtil;
 import com.jxy.ojcodesandbox.util.ExecuteMessage;
 import com.jxy.ojcodesandbox.util.ProcessUtils;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Component;
 
 import java.io.Closeable;
 import java.io.File;
@@ -33,11 +34,12 @@ import java.util.concurrent.TimeUnit;
  * docker 实现代码沙箱
  */
 @Slf4j
+@Component
 public class JavaDockerCodeSandBox implements CodeSandBox {
 
     private final static String CODE_DIR_PATH = "src/main/resources/tmpCode";
 
-    private final static String CODE_MAIN_FILE = "Main.java";
+    private final static String CODE_MAIN_FILE = "OjCodeSandBoxController.java";
 
     /**
      * 时间限制
@@ -78,7 +80,7 @@ public class JavaDockerCodeSandBox implements CodeSandBox {
         ExecuteCodeRequest executeCodeRequest = new ExecuteCodeRequest();
         executeCodeRequest.setInputList(Arrays.asList("1 2", "1 3"));
         String code = ResourceUtil.readUtf8Str("example/exampleArg/Main.java");
-//        String code = ResourceUtil.readUtf8Str("example/exampleAcm/Main.java");
+//        String code = ResourceUtil.readUtf8Str("example/exampleAcm/OjCodeSandBoxController.java");
 //        String code = ResourceUtil.readUtf8Str("example/error/RunFileError.java");
         executeCodeRequest.setCode(code);
         executeCodeRequest.setLanguage("java");
@@ -152,8 +154,8 @@ public class JavaDockerCodeSandBox implements CodeSandBox {
             for (String input : inputList) {
                 StopWatch stopWatch = new StopWatch();
                 String[] inputArgsArray = input.split(" ");
-                String[] cmdArray = ArrayUtil.append(new String[]{"java", "-cp", "/app", "Main"}, inputArgsArray);
-                // docker exec 容器id java -cp /app Main 1 3
+                String[] cmdArray = ArrayUtil.append(new String[]{"java", "-cp", "/app", "OjCodeSandBoxController"}, inputArgsArray);
+                // docker exec 容器id java -cp /app OjCodeSandBoxController 1 3
                 ExecCreateCmdResponse execCreateCmdResponse = DockerUtil.execCreateCmd(containerId, cmdArray);
 
                 long time = 0L;

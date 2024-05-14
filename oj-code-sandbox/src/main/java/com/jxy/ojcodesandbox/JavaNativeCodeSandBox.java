@@ -12,6 +12,7 @@ import com.jxy.ojcodesandbox.security.DefaultSecurityManager;
 import com.jxy.ojcodesandbox.util.ExecuteMessage;
 import com.jxy.ojcodesandbox.util.ProcessUtils;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.io.IOException;
@@ -26,11 +27,12 @@ import java.util.UUID;
  * java原生实现代码沙箱
  */
 @Slf4j
+@Component
 public class JavaNativeCodeSandBox implements CodeSandBox {
 
     private final static String CODE_DIR_PATH = "src\\main\\resources\\tmpCode";
 
-    private final static String CODE_MAIN_FILE = "Main.java";
+    private final static String CODE_MAIN_FILE = "OjCodeSandBoxController.java";
 
     /**
      * 时间限制
@@ -69,7 +71,7 @@ public class JavaNativeCodeSandBox implements CodeSandBox {
         ExecuteCodeRequest executeCodeRequest = new ExecuteCodeRequest();
         executeCodeRequest.setInputList(Arrays.asList("1 2", "3 4"));
         String code = ResourceUtil.readUtf8Str("example/exampleArg/Main.java");
-//        String code = ResourceUtil.readUtf8Str("example/exampleAcm/Main.java");
+//        String code = ResourceUtil.readUtf8Str("example/exampleAcm/OjCodeSandBoxController.java");
 //        String code = ResourceUtil.readUtf8Str("example/error/RunFileError.java");
         executeCodeRequest.setCode(code);
         executeCodeRequest.setLanguage("java");
@@ -122,7 +124,7 @@ public class JavaNativeCodeSandBox implements CodeSandBox {
                 // arg参数方式
                 // 1. 限制资源分配（最大堆内存256m）,这种方式只能进行程序方面的限制，系统方面的限制使用cGroup（系统）
                 // 2. 使用安全管理器
-                String runCmd = String.format("java -Xms256m -Xmx256m -Dfile.encoding=UTF-8 -cp %s;%s -Djava.security.manager=%s Main %s", userCodeParentPath, SECURITY_MANAGER_PATH, SECURITY_MANAGER_CLASS_NAME, input);
+                String runCmd = String.format("java -Xms256m -Xmx256m -Dfile.encoding=UTF-8 -cp %s;%s -Djava.security.manager=%s OjCodeSandBoxController %s", userCodeParentPath, SECURITY_MANAGER_PATH, SECURITY_MANAGER_CLASS_NAME, input);
                 Process runProcess = Runtime.getRuntime().exec(runCmd);
 
                 // 开启后台线程监控超时
