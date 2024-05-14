@@ -5,6 +5,7 @@ import com.jxy.oj.common.BaseResponse;
 import com.jxy.oj.common.ErrorCode;
 import com.jxy.oj.common.ResultUtils;
 import com.jxy.oj.exception.BusinessException;
+import com.jxy.oj.judge.service.JudgeService;
 import com.jxy.oj.model.dto.questionsubmit.QuestionSubmitAddRequest;
 import com.jxy.oj.model.dto.questionsubmit.QuestionSubmitQueryRequest;
 import com.jxy.oj.model.entity.QuestionSubmit;
@@ -50,7 +51,7 @@ public class QuestionSubmitController {
         if (questionSubmitAddRequest == null || questionSubmitAddRequest.getQuestionId() <= 0) {
             throw new BusinessException(ErrorCode.PARAMS_ERROR);
         }
-        // 登录才能点赞
+        // 登录才能提交题目
         final User loginUser = userService.getLoginUser(request);
         long questionSubmitId = questionSubmitService.doQuestionSubmit(questionSubmitAddRequest, loginUser);
         return ResultUtils.success(questionSubmitId);
