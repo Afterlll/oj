@@ -12,7 +12,7 @@ import java.util.Scanner;
 public class ExecuteMainThroughProcess {
     public static void main(String[] args) throws IOException, InterruptedException {
         String userCodeParentPath = "D:\\code\\project\\oj\\oj-code-sandbox\\src\\main\\resources\\exampleAcm"; // 替换为实际的类路径
-        String runCmd = String.format("java -Dfile.encoding=UTF-8 -cp %s OjCodeSandBoxController", userCodeParentPath);
+        String runCmd = String.format("java -Dfile.encoding=UTF-8 -cp %s Main", userCodeParentPath);
 
         // 创建ProcessBuilder来执行Java命令
         ProcessBuilder pb = new ProcessBuilder(runCmd.split(" "));

@@ -1,6 +1,6 @@
 package com.jxy.ojcodesandbox.controller;
 
-import com.jxy.ojcodesandbox.CodeSandBox;
+import com.jxy.ojcodesandbox.JavaNativeCodeSandBox;
 import com.jxy.ojcodesandbox.model.dto.ExecuteCodeRequest;
 import com.jxy.ojcodesandbox.model.vo.ExecuteCodeRespond;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,7 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 public class OjCodeSandBoxController {
 
     @Resource
-    private CodeSandBox codeSandBox;
+    private JavaNativeCodeSandBox javaNativeCodeSandBox;
     
     // 定义鉴权请求头
     public static final String AUTH_REQUEST_HEADER = "auth";
@@ -43,7 +43,7 @@ public class OjCodeSandBoxController {
         if (null == executeCodeRequest) {
             throw new RuntimeException("请求参数为空！");
         }
-        return codeSandBox.executeCode(executeCodeRequest);
+        return javaNativeCodeSandBox.executeCode(executeCodeRequest);
     }
 
 }

@@ -3,8 +3,11 @@ package com.jxy.ojcodesandbox.util;
 import cn.hutool.core.date.StopWatch;
 import cn.hutool.core.util.StrUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author wangkeyao
@@ -23,63 +26,53 @@ public class ProcessUtils {
      */
     public static ExecuteMessage runProcessAndGetMessage(Process runProcess, String opName) {
         ExecuteMessage executeMessage = new ExecuteMessage();
-        BufferedReader bufferedReader = null;
-        BufferedReader bufferedErrorReader = null;
+
         try {
-            // todo 需要考虑：往控制台中输出信息是否需要算进运行时间去
             StopWatch stopWatch = new StopWatch();
             stopWatch.start();
-            // 等待程序执行完成，获取执行状态码
+            // 等待程序执行，获取错误码
             int exitValue = runProcess.waitFor();
             executeMessage.setExitValue(exitValue);
+            // 正常退出
             if (exitValue == 0) {
-                // 正常退出
-                bufferedReader = new BufferedReader(new InputStreamReader(runProcess.getInputStream()));
-                String line;
-                StringBuilder stringOutputBuilder = new StringBuilder();
-                while ((line = bufferedReader.readLine()) != null) {
-                    stringOutputBuilder.append(line);
+                System.out.println(opName + "成功");
+                // 分批获取进程的正常输出
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(runProcess.getInputStream()));
+                List<String> outputStrList = new ArrayList<>();
+                // 逐行读取
+                String compileOutputLine;
+                while ((compileOutputLine = bufferedReader.readLine()) != null) {
+                    outputStrList.add(compileOutputLine);
                 }
-                executeMessage.setMessage(stringOutputBuilder.toString());
-                log.info("{}成功：{}", opName, stringOutputBuilder);
+                executeMessage.setMessage(StringUtils.join(outputStrList, "\n"));
             } else {
                 // 异常退出
-                bufferedReader = new BufferedReader(new InputStreamReader(runProcess.getInputStream()));
-                String line;
-                StringBuilder stringOutputBuilder = new StringBuilder();
-                while ((line = bufferedReader.readLine()) != null) {
-                    stringOutputBuilder.append(line);
+                System.out.println(opName + "失败，错误码： " + exitValue);
+                // 分批获取进程的正常输出
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(runProcess.getInputStream()));
+                List<String> outputStrList = new ArrayList<>();
+                // 逐行读取
+                String compileOutputLine;
+                while ((compileOutputLine = bufferedReader.readLine()) != null) {
+                    outputStrList.add(compileOutputLine);
                 }
+                executeMessage.setMessage(StringUtils.join(outputStrList, "\n"));
 
-                InputStream errorStream = runProcess.getErrorStream();
-                bufferedErrorReader = new BufferedReader(new InputStreamReader(errorStream));
-                String errorLine;
-                while ((errorLine = bufferedErrorReader.readLine()) != null) {
-                    stringOutputBuilder.append(errorLine);
+                // 分批获取进程的错误输出
+                BufferedReader errorBufferedReader = new BufferedReader(new InputStreamReader(runProcess.getErrorStream()));
+                // 逐行读取
+                List<String> errorOutputStrList = new ArrayList<>();
+                // 逐行读取
+                String errorCompileOutputLine;
+                while ((errorCompileOutputLine = errorBufferedReader.readLine()) != null) {
+                    errorOutputStrList.add(errorCompileOutputLine);
                 }
-                executeMessage.setErrorMessage(stringOutputBuilder.toString());
-                log.error("{}失败,状态码为：{}，异常信息为：{}，", opName, exitValue, stringOutputBuilder);
+                executeMessage.setErrorMessage(StringUtils.join(errorOutputStrList, "\n"));
             }
             stopWatch.stop();
-            executeMessage.setTime(stopWatch.getTotalTimeMillis());
+            executeMessage.setTime(stopWatch.getLastTaskTimeMillis());
         } catch (Exception e) {
-            log.error("执行进程出现异常：", e);
-            throw new RuntimeException(e);
-        } finally {
-            if (null != bufferedReader) {
-                try {
-                    bufferedReader.close();
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-            if (null != bufferedErrorReader) {
-                try {
-                    bufferedErrorReader.close();
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-            }
+            e.printStackTrace();
         }
         return executeMessage;
     }
