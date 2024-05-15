@@ -20,6 +20,7 @@ import com.jxy.oj.service.QuestionService;
 import com.jxy.oj.service.QuestionSubmitService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -52,6 +53,7 @@ public class JudgeServiceImpl implements JudgeService {
      * @return 返回题目提交信息（包含执行结果，包括status、judgeInfo）
      */
     @Override
+    @Transactional
     public QuestionSubmit doJudge(long questionSubmitId) {
         // 1. 根据提交题目的id获取对应的题目、提交信息（包含代码、编程语言等）
         QuestionSubmit questionSubmit = questionSubmitService.getById(questionSubmitId);
