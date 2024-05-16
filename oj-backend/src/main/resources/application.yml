@@ -10,8 +10,8 @@ spring:
       matching-strategy: ant_path_matcher
   # session 配置
   session:
-    # todo 取消注释开启分布式 session（须先配置 Redis）
-    # store-type: redis
+    # 开启分布式 session（须先配置 Redis）
+    store-type: redis
     # 30 天过期
     timeout: 2592000
   # 数据库配置
@@ -23,12 +23,11 @@ spring:
     password: 123
   # Redis 配置
   # todo 需替换配置，然后取消注释
-#  redis:
-#    database: 1
-#    host: localhost
-#    port: 6379
-#    timeout: 5000
-#    password: 123456
+  redis:
+    database: 9
+    host: localhost
+    port: 6379
+    timeout: 5000
   # Elasticsearch 配置
   # todo 需替换配置，然后取消注释
 #  elasticsearch:
