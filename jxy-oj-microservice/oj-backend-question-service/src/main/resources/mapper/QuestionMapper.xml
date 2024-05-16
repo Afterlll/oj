@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jxy.ojbackendquestionservice.mapper.QuestionMapper">
+
+    <resultMap id="BaseResultMap" type="com.jxy.ojbackendmodel.entity.Question">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="title" column="title" jdbcType="VARCHAR"/>
+            <result property="content" column="content" jdbcType="VARCHAR"/>
+            <result property="tags" column="tags" jdbcType="VARCHAR"/>
+            <result property="answer" column="answer" jdbcType="VARCHAR"/>
+            <result property="submitnum" column="submitNum" jdbcType="INTEGER"/>
+            <result property="acceptednum" column="acceptedNum" jdbcType="INTEGER"/>
+            <result property="judgecase" column="judgeCase" jdbcType="VARCHAR"/>
+            <result property="judgeconfig" column="judgeConfig" jdbcType="VARCHAR"/>
+            <result property="thumbnum" column="thumbNum" jdbcType="INTEGER"/>
+            <result property="favournum" column="favourNum" jdbcType="INTEGER"/>
+            <result property="userid" column="userId" jdbcType="BIGINT"/>
+            <result property="createtime" column="createTime" jdbcType="TIMESTAMP"/>
+            <result property="updatetime" column="updateTime" jdbcType="TIMESTAMP"/>
+            <result property="isdelete" column="isDelete" jdbcType="TINYINT"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,title,content,
+        tags,answer,submitNum,
+        acceptedNum,judgeCase,judgeConfig,
+        thumbNum,favourNum,userId,
+        createTime,updateTime,isDelete
+    </sql>
+</mapper>

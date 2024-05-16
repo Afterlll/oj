@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jxy.ojbackendquestionservice.mapper.QuestionSubmitMapper">
+
+    <resultMap id="BaseResultMap" type="com.jxy.ojbackendmodel.entity.QuestionSubmit">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="language" column="language" jdbcType="VARCHAR"/>
+            <result property="code" column="code" jdbcType="VARCHAR"/>
+            <result property="judgeinfo" column="judgeInfo" jdbcType="VARCHAR"/>
+            <result property="status" column="status" jdbcType="INTEGER"/>
+            <result property="questionid" column="questionId" jdbcType="BIGINT"/>
+            <result property="userid" column="userId" jdbcType="BIGINT"/>
+            <result property="createtime" column="createTime" jdbcType="TIMESTAMP"/>
+            <result property="updatetime" column="updateTime" jdbcType="TIMESTAMP"/>
+            <result property="isdelete" column="isDelete" jdbcType="TINYINT"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,language,code,
+        judgeInfo,status,questionId,
+        userId,createTime,updateTime,
+        isDelete
+    </sql>
+</mapper>
