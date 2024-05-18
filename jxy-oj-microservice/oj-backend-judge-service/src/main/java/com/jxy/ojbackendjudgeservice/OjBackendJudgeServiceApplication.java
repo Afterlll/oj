@@ -19,6 +19,9 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 public class OjBackendJudgeServiceApplication {
 
     public static void main(String[] args) {
+        // 在启动判题服务之前开启消息队列初始化
+        // 初始化消息队列，先注释掉，改用 Bean 的方式初始化消息队列（InitRabbitMqBean.java）
+//        InitRabbitMq.doInit();
         SpringApplication.run(OjBackendJudgeServiceApplication.class, args);
     }
 
