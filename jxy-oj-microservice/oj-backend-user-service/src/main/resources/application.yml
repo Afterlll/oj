@@ -93,3 +93,5 @@ cos:
 # ??????
 codesandbox:
   type: remote
+knife4j:
+  enable: true
