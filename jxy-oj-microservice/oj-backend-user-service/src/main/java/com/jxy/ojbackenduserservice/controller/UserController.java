@@ -13,7 +13,7 @@ import com.jxy.ojbackendmodel.dto.user.*;
 import com.jxy.ojbackendmodel.entity.User;
 import com.jxy.ojbackendmodel.vo.LoginUserVO;
 import com.jxy.ojbackendmodel.vo.UserVO;
-import com.jxy.ojbackendserviceclient.UserService;
+import com.jxy.ojbackenduserservice.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
@@ -30,7 +29,7 @@ import java.util.List;
  * @author <a href="https://github.com/Afterlll">江喜原</a>
  */
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/")
 @Slf4j
 public class UserController {
 

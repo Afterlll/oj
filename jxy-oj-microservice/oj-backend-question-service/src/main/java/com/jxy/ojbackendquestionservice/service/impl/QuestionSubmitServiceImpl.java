@@ -16,10 +16,10 @@ import com.jxy.ojbackendmodel.enums.QuestionSubmitLanguageEnum;
 import com.jxy.ojbackendmodel.enums.QuestionSubmitStatusEnum;
 import com.jxy.ojbackendmodel.vo.QuestionSubmitVO;
 import com.jxy.ojbackendquestionservice.mapper.QuestionSubmitMapper;
-import com.jxy.ojbackendserviceclient.JudgeService;
-import com.jxy.ojbackendserviceclient.QuestionService;
-import com.jxy.ojbackendserviceclient.QuestionSubmitService;
-import com.jxy.ojbackendserviceclient.UserService;
+import com.jxy.ojbackendquestionservice.service.QuestionService;
+import com.jxy.ojbackendquestionservice.service.QuestionSubmitService;
+import com.jxy.ojbackendserviceclient.JudgeFeignClient;
+import com.jxy.ojbackendserviceclient.UserFeignClient;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -43,11 +43,11 @@ public class QuestionSubmitServiceImpl extends ServiceImpl<QuestionSubmitMapper,
     private QuestionService questionService;
 
     @Resource
-    private UserService userService;
+    private UserFeignClient userFeignClient;
 
     @Resource
     @Lazy
-    private JudgeService judgeService;
+    private JudgeFeignClient judgeFeignClient;
 
     /**
      * 提交题目
@@ -87,7 +87,7 @@ public class QuestionSubmitServiceImpl extends ServiceImpl<QuestionSubmitMapper,
         }
         // 执行判题服务
         CompletableFuture.runAsync(() -> {
-            judgeService.doJudge(questionSubmit.getId());
+            judgeFeignClient.doJudge(questionSubmit.getId());
         });
         return questionSubmit.getId();
     }
@@ -129,7 +129,7 @@ public class QuestionSubmitServiceImpl extends ServiceImpl<QuestionSubmitMapper,
         // 脱敏：仅本人和管理员能看见自己（提交 userId 和登录用户 id 不同）提交的代码
         long userId = loginUser.getId();
         // 处理脱敏
-        if (userId != questionSubmit.getUserId() && !userService.isAdmin(loginUser)) {
+        if (userId != questionSubmit.getUserId() && !userFeignClient.isAdmin(loginUser)) {
             questionSubmitVO.setCode(null);
         }
         return questionSubmitVO;
