@@ -1,0 +1,54 @@
+version: '3'
+services:
+  oj-backend-gateway:
+    container_name: oj-backend-gateway
+    build:
+      context: ./oj-backend-gateway
+      dockerfile: Dockerfile
+    ports:
+      - "8101:8101"
+    networks:
+      - mynetwork
+
+  oj-backend-user-service:
+    container_name: oj-backend-user-service
+    build:
+      context: ./oj-backend-user-service
+      dockerfile: Dockerfile
+    ports:
+      - "8102:8102"
+    networks:
+      - mynetwork
+    depends_on:
+      - oj-backend-gateway
+
+  oj-backend-question-service:
+    container_name: oj-backend-question-service
+    build:
+      context: ./oj-backend-question-service
+      dockerfile: Dockerfile
+    ports:
+      - "8103:8103"
+    networks:
+      - mynetwork
+    depends_on:
+      - oj-backend-user-service
+      - oj-backend-gateway
+
+  oj-backend-judge-service:
+    container_name: oj-backend-judge-service
+    build:
+      context: ./oj-backend-judge-service
+      dockerfile: Dockerfile
+    ports:
+      - "8104:8104"
+    networks:
+      - mynetwork
+    depends_on:
+      - oj-backend-user-service
+      - oj-backend-question-service
+      - oj-backend-gateway
+
+# 网络，不定义的话就是默认网络
+networks:
+  mynetwork:
