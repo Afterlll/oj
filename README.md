@@ -20,7 +20,7 @@
 
 ## 架构设计
 
-![image-20240519121638270](C:\Users\13547\AppData\Roaming\Typora\typora-user-images\image-20240519121638270.png)
+![image-20240519121638270](https://github.com/Afterlll/oj/assets/116958691/4c2ced4e-bebf-4fa5-9cdd-cd40470c82bb)
 
 
 
@@ -28,9 +28,9 @@
 
 ## 核心业务流程
 
-![image-20240519121445415](C:\Users\13547\AppData\Roaming\Typora\typora-user-images\image-20240519121445415.png)
+![image-20240519121445415](https://github.com/Afterlll/oj/assets/116958691/a03f9ea4-10a8-48dc-8e03-788c7507b0cc)
 
-![image-20240519121530120](C:\Users\13547\AppData\Roaming\Typora\typora-user-images\image-20240519121530120.png)
+![image-20240519121530120](https://github.com/Afterlll/oj/assets/116958691/edfb550c-a7d8-42b9-9d4e-43781bb53d7f)
 
 
 
@@ -66,4 +66,4 @@ Vue3、Arco Design 组件库、在线代码编辑器、在线文档浏览、Java
 
 ## 判题机架构
 
-![image-20240519131623087](C:\Users\13547\AppData\Roaming\Typora\typora-user-images\image-20240519131623087.png)
+![image-20240519131623087](https://github.com/Afterlll/oj/assets/116958691/05ccbc85-4d7e-441c-bd1f-f1cd03aa005e)
